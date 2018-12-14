@@ -6,8 +6,8 @@
 </head>
 <body>
 <div id="app">
-    {{message}}
-    <input v-model="message">
+    {{message}}<br/>
+    <input v-model="message"><br/>
 </div>
 
 </body>
@@ -17,7 +17,19 @@
     new Vue({
         el: '#app',
         data: {
-            'message':"Hello world!",
+            a:1,
+            message:"Hello world!",
+        },
+        method:{
+            doSomething:function () {
+                this.a++;
+                console.log(">>??");
+            }
+        },
+        watch:{
+            'message':function (val,oldVal) {
+                console.log(val,oldVal);
+            }
         }
     })
 </script>
