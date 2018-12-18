@@ -1,110 +1,109 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Vue 入门</title>
-    <script src="vue.js"></script>
-</head>
-<body>
-<div id="app">
-    {{message}}<br/>
-    <input v-model="message"><br/>
-    <span :title="'babay ' + message">鼠标悬停</span>
-    <div @click="handleClick">
-        <button>HEHE</button>
-        <h2 v-show="isShow">{{message2}}</h2>
-    </div>
-    姓：<input v-model="firstName">
-    名：<input v-model="lastName">
-    <h4>{{fullName}}--{{count}}</h4>
-</div>
-<hr/>
-<div id="root">
-    <div>
-        <input v-model="inputValue"/>
-        <button @click="handleSubmit">提交</button>
-    </div>
-    <ul>
-        <todo-item
-                v-for="(item,index) of list"
-                :key="index"
-                :content="item"
-                :index="index"
-                @delete="handleDelete"
-        >
-        </todo-item>
-    </ul>
-</div>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Vue 入门</title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{message}}<br />
+			<input v-model="message"><br />
+			<span :title="'babay ' + message">鼠标悬停</span>
+			<div @click="handleClick">
+				<button>HEHE</button>
+				<h2 v-show="isShow">{{message2}}</h2>
+			</div>
+			姓：<input v-model="firstName">
+			名：<input v-model="lastName">
+			<h4>{{fullName}}--{{count}}</h4>
+		</div>
+		<hr />
+		<div id="root">
+			<div>
+				<input v-model="inputValue" />
+				<button @click="handleSubmit">提交</button>
+			</div>
+			<ul>
+				<todo-item v-for="(item,index) of list" :key="index" :content="item" :index="index" @delete="handleDelete">
+				</todo-item>
+			</ul>
+		</div>
+	</body>
 
-<script>
-    Vue.component('todo-item', {
-        props: ['content', 'index'],
-        template: '<li @click="handleClick">{{content}}</li>',
-        methods: {
-            'handleClick': function () {
-                this.$emit('delete', this.index);
-            }
-        }
-    });
-    var root = new Vue({
-        el: '#root',
-        data: {
-            inputValue: '',
-            list: [],
-        },
-        methods: {
-            'handleSubmit': function () {
-                var inputNew = this.inputValue;
-                if (inputNew) {
-                    this.list.push(this.inputValue);
-                    this.inputValue = '';
-                }
-            },
-            'handleDelete': function (index) {
-                this.list.splice(index, 1);
-            }
-        }
-    });
-    var app = new Vue({
-        el: '#app',
-        //template:'<h2>Thanks {{message}}</h2>',
-        data: {
-            a: 1,
-            message: "Hello world!",
-            message2: "Sorry",
-            firstName: "",
-            lastName: "",
-            count: 0,
-            isShow: true,
-            todos: [
-                {text: '学习 JavaScript'},
-                {text: '学习 Vue'},
-                {text: '整个牛项目'}
-            ]
-        },
-        methods: {
-            'handleClick': function (msg) {
-                this.message2 = "Thanks";
-                this.isShow = !this.isShow;
-            }
-        },
-        computed: {
-            'fullName': function () {
-                return this.firstName + "" + this.lastName;
-            }
-        },
-        watch: {
-            'message': function (val, oldVal) {
-                console.log(val, oldVal);
-            },
-            'firstName': function () {
-                this.count++;
-            },
-            'lastName': function () {
-                this.count++;
-            }
-        }
-    })
-</script>
+	<script>
+		Vue.component('todo-item', {
+			props: ['content', 'index'],
+			template: '<li @click="handleClick">{{content}}</li>',
+			methods: {
+				'handleClick': function() {
+					this.$emit('delete', this.index);
+				}
+			}
+		});
+		var root = new Vue({
+			el: '#root',
+			data: {
+				inputValue: '',
+				list: [],
+			},
+			methods: {
+				'handleSubmit': function() {
+					var inputNew = this.inputValue;
+					if (inputNew) {
+						this.list.push(this.inputValue);
+						this.inputValue = '';
+					}
+				},
+				'handleDelete': function(index) {
+					this.list.splice(index, 1);
+				}
+			}
+		});
+		var app = new Vue({
+			el: '#app',
+			//template:'<h2>Thanks {{message}}</h2>',
+			data: {
+				a: 1,
+				message: "Hello world!",
+				message2: "Sorry",
+				firstName: "",
+				lastName: "",
+				count: 0,
+				isShow: true,
+				todos: [{
+						text: '学习 JavaScript'
+					},
+					{
+						text: '学习 Vue'
+					},
+					{
+						text: '整个牛项目'
+					}
+				]
+			},
+			methods: {
+				'handleClick': function(msg) {
+					this.message2 = "Thanks";
+					this.isShow = !this.isShow;
+				}
+			},
+			computed: {
+				'fullName': function() {
+					return this.firstName + "" + this.lastName;
+				}
+			},
+			watch: {
+				'message': function(val, oldVal) {
+					console.log(val, oldVal);
+				},
+				'firstName': function() {
+					this.count++;
+				},
+				'lastName': function() {
+					this.count++;
+				}
+			}
+		})
+	</script>
 </html>
